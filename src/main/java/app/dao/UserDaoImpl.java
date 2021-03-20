@@ -23,12 +23,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByName(String name) {
-        User user = (User) entityManager.createQuery("select n from User n where n.name = '" + name +"'").getSingleResult();
-        if (user == null) {
-            return null;
-        }
-
-        return user;
+        return (User) entityManager.createQuery("select n from User n where n.name = '" + name +"'").getSingleResult();
     }
 }
 

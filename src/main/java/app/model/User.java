@@ -1,5 +1,7 @@
 package app.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")

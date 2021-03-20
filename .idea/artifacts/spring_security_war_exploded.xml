@@ -28,6 +28,8 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:5.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:5.2.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:5.2.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf-spring5:3.0.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.0.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.4.RELEASE" />
@@ -57,6 +59,7 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.7.21" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-dbcp:9.0.44" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.44" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.18" />
         </element>
       </element>
       <element id="directory" name="META-INF">
