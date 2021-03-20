@@ -40,14 +40,9 @@ public class UserController {
 		modelAndView.setViewName("login");
         return modelAndView;
     }
-	@Transactional
-	@RequestMapping(value = "user", method = RequestMethod.GET)
-	public String UserPage(ModelMap modelMap, @ModelAttribute("user") User user) {
-		return "user";
-	}
 
 	@Transactional
-	@RequestMapping(value = "user/{name}", method = RequestMethod.GET)
+	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public ModelAndView UserPageId(ModelMap modelMap, @AuthenticationPrincipal User user) {
 		modelMap.addAttribute("user", user);
 		ModelAndView modelAndView = new ModelAndView();

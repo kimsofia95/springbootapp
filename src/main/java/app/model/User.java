@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -102,7 +103,8 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
+
     }
 }

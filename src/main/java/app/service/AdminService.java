@@ -1,10 +1,14 @@
 package app.service;
 
+import app.model.Role;
 import app.model.User;
 
 import java.util.ArrayList;
 
 public interface AdminService {
+    ArrayList<Role> allRoles();
     ArrayList<User> allUsers();
-    void deleteUser(Long userId);
+    void deleteUser(User user);
+    void addUser(User user);
+    void ChangeUser(User user);
 }

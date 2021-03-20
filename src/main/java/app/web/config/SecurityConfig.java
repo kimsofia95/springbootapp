@@ -66,8 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
                 // защищенные URL
-                .antMatchers("/user/**").access("hasAnyRole('ROLE_USER')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+                .antMatchers("/user").access("hasAnyRole('ROLE_USER')")
+                .antMatchers("/admin").access("hasRole('ROLE_ADMIN')").anyRequest().authenticated();
                 // Spring сам подставит свою логин форму
                // .successHandler(successUserHandler);
     }

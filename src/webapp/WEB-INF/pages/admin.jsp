@@ -13,7 +13,6 @@
 <head>
     <meta charset="utf-8">
     <title>Log in with your account</title>
-    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css">
 </head>
 
 <body>
@@ -28,21 +27,26 @@
         <c:forEach items="${allUsers}" var="user">
             <tr>
                 <td>${user.id}</td>
-                <td>${user.username}</td>
+                <td>${user.name}</td>
                 <td>${user.password}</td>
                 <td>
-                    <c:forEach items="${user.roles}" var="role">${role.name}; </c:forEach>
+                    <c:forEach items="${user.roles}" var="role">${role.role} </c:forEach>
                 </td>
                 <td>
                     <form action="${pageContext.request.contextPath}/admin" method="post">
                         <input type="hidden" name="userId" value="${user.id}"/>
                         <input type="hidden" name="action" value="delete"/>
-                        <button type="submit">Delete</button>
+                        <a href="admin/delete/${user.name}">delete</a>
+                        <input type="hidden" name="action" value="edit"/>
+                        <a href="admin/edit/${user.name}">edit</a>
                     </form>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    <h2>Add</h2>
+    <c:url value="admin/add" var="add"/>
+    <a href="${add}">Add new user</a>
     <a href="/logout">Выйти из системы</a>
 </div>
 </body>
