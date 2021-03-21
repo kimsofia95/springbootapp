@@ -104,7 +104,10 @@ public class User implements UserDetails {
     }
 
     public void setRoles(String roles) {
-        this.roles = roles;
+        this.roles = new HashSet<>();
+    }
 
+    public void setRolesSecond(Set<Role> roles) {
+        this.roles = roles;
     }
 }

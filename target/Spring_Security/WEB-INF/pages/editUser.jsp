@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <c:if test="${empty user.name}">
@@ -31,13 +32,11 @@
     <input type="text" name="name" id="name">
     <label for="password">Password</label>
     <input type="text" name="password" id="password">
-    <label for="editRoles"></label>
-    <select id="editRoles" name="roles" multiple size="${allRoles.size()}" required
-                                           class="form-control form-control-sm">
-<c:forEach items="${allRoles}" var="role">
-    <option value="${role.role}"  ${role.role} selected   >${role.role}</option>
-</c:forEach>
-    </select>
+    <ul>
+        <li <c:forEach items="${allRoles}" var="role">
+        <p><input type="checkbox" name="roles" value="${role.role}" text="${role.role}" id = "${role.id}">${role.role}</p>
+    </c:forEach> </li>
+    </ul>
     <c:if test="${empty user.name}">
         <input type="submit" value="Add new user">
     </c:if>

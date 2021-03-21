@@ -37,13 +37,13 @@ public class AdminServiceImpl implements AdminService{
 
     @Transactional
     @Override
-    public void addUser(User user) {
-        adminDao.addUser(user);
+    public void addUser(User user, String[] roles) {
+        adminDao.addUser(user, roles);
     }
 
     @Transactional
     @Override
-    public void ChangeUser(User user) {
-        adminDao.ChangeUser(user);
+    public void ChangeUser(User user, String[] roles) {
+        adminDao.ChangeUser(user, roles);
     }
 }

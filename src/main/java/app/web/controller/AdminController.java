@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -47,25 +49,27 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
-    public ModelAndView editUser(@ModelAttribute("user") User user) {
+    public ModelAndView editUser(@ModelAttribute("user") User user, @RequestParam(value = "roles", required = false) String[] roles) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
-        adminService.ChangeUser(user);
+        adminService.ChangeUser(user, roles);
         return modelAndView;
     }
 
     @RequestMapping(value = "admin/add", method = RequestMethod.POST)
-    public ModelAndView addUser(@ModelAttribute("user") User user) {
+    public ModelAndView addUser(@ModelAttribute("user") User user,@RequestParam(value = "roles", required = false) String[] roles) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
-        adminService.addUser(user);
+        adminService.addUser(user, roles);
         return modelAndView;
     }
 
     @RequestMapping(value = "admin/add", method = RequestMethod.GET)
     public ModelAndView addUser() {
         ModelAndView modelAndView = new ModelAndView();
+        ArrayList<Role> roles = (ArrayList<Role>) adminService.allRoles();
         modelAndView.setViewName("editUser");
+        modelAndView.addObject("allRoles", roles);
         return modelAndView;
     }
     @RequestMapping("/admin/{username}")

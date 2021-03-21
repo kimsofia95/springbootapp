@@ -9,6 +9,6 @@ public interface AdminDao {
     ArrayList<User> allUsers();
     ArrayList<Role> allRoles();
     void deleteUser(User user);
-    void addUser(User user);
-    void ChangeUser(User user);
+    void addUser(User user, String[] roles);
+    void ChangeUser(User user, String[] roles);
 }
