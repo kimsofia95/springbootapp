@@ -20,7 +20,7 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", unique=true)
     private String name; // уникальное значение
     @Column(name = "password")
     private String password;
