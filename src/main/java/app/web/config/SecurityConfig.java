@@ -1,6 +1,6 @@
 package app.web.config;
 
-import app.model.User;
+import app.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,21 +20,27 @@ import app.web.config.handler.LoginSuccessHandler;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
-    private final LoginSuccessHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по ролям
+    private final LoginSuccessHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по
+    private final AdminService adminService;
+    private boolean DefaultRowsCreated = false;
 
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler, AdminService adminService) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
+        this.adminService = adminService;
     }
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-  
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        if (!DefaultRowsCreated) {
+            adminService.createDefaultRows();
+            DefaultRowsCreated = true;
+        }
         http.formLogin()
                 // указываем страницу с формой логина
                 .loginPage("/login")

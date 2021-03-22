@@ -53,4 +53,17 @@ public class AdminDaoImpl implements AdminDao{
         user.setRolesSecond(rolesSet);
         entityManager.merge(user);
     }
+
+    @Override
+    public void createDefaultRows() {
+        Set<Role> rolesSet = new HashSet<>();
+        Role adminRole = new Role(1L, "ROLE_ADMIN");
+        Role userRole = new Role(2L, "ROLE_USER");
+        rolesSet.add(adminRole);
+        rolesSet.add(userRole);
+        User admin = new User(1L, "admin", "admin", rolesSet);
+        entityManager.merge(adminRole);
+        entityManager.merge(userRole);
+        entityManager.merge(admin);
+    }
 }

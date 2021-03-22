@@ -1,13 +1,13 @@
 package app.web.controller;
 
 import app.model.User;
+import app.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,11 +19,17 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class UserController {
+	private final UserDetailsService userDetailsService;
+	private final AdminService adminService;
+
 	@Autowired
-	private UserDetailsService userDetailsService;
+	public UserController(UserDetailsService userDetailsService, AdminService adminService) {
+		this.userDetailsService = userDetailsService;
+		this.adminService = adminService;
+	}
 
 	@Transactional
-	@RequestMapping(value = "hello", method = RequestMethod.GET)
+	@GetMapping(value = "hello")
 	public String printWelcome(ModelMap model) {
 		List<String> messages = new ArrayList<>();
 		messages.add("Hello!");
@@ -34,7 +40,7 @@ public class UserController {
 	}
 
 	@Transactional
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @GetMapping(value = "login")
     public ModelAndView loginPage(ModelMap modelMap) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
@@ -42,7 +48,7 @@ public class UserController {
     }
 
 	@Transactional
-	@RequestMapping(value = "user", method = RequestMethod.GET)
+	@GetMapping(value = "user")
 	public ModelAndView UserPageId(ModelMap modelMap, @AuthenticationPrincipal User user) {
 		modelMap.addAttribute("user", user);
 		ModelAndView modelAndView = new ModelAndView();

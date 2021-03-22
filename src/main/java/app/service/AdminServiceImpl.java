@@ -14,8 +14,12 @@ import java.util.ArrayList;
 @Component
 @Service
 public class AdminServiceImpl implements AdminService{
+    private final AdminDao adminDao;
+
     @Autowired
-    private AdminDao adminDao;
+    public AdminServiceImpl(AdminDao adminDao) {
+        this.adminDao = adminDao;
+    }
 
     @Transactional
     @Override
@@ -45,5 +49,11 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public void ChangeUser(User user, String[] roles) {
         adminDao.ChangeUser(user, roles);
+    }
+
+    @Transactional
+    @Override
+    public void createDefaultRows() {
+        adminDao.createDefaultRows();
     }
 }

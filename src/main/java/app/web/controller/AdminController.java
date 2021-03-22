@@ -17,10 +17,14 @@ import java.util.Set;
 
 @Controller
 public class AdminController {
+    private final UserDetailsService userService;
+    private final AdminService adminService;
+
     @Autowired
-    private UserDetailsService userService;
-    @Autowired
-    private AdminService adminService;
+    public AdminController(UserDetailsService userService, AdminService adminService) {
+        this.userService = userService;
+        this.adminService = adminService;
+    }
 
     @GetMapping("/admin")
     public String userList(Model model) {
@@ -28,7 +32,7 @@ public class AdminController {
         return "admin";
     }
 
-    @RequestMapping("/admin/delete/{username}")
+    @GetMapping("/admin/delete/{username}")
     public ModelAndView deleteUser(Model model, @PathVariable String username) {
         ModelAndView modelAndView = new ModelAndView();
         User user = (User) userService.loadUserByUsername(username);
@@ -37,7 +41,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/admin/edit/{username}", method = RequestMethod.GET)
+    @GetMapping(value = "/admin/edit/{username}")
     public ModelAndView editPage(@PathVariable("username") String username) {
         User user = (User) userService.loadUserByUsername(username);
         ArrayList<Role> roles = (ArrayList<Role>) adminService.allRoles();
@@ -48,7 +52,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
+    @PostMapping(value = "/admin/edit")
     public ModelAndView editUser(@ModelAttribute("user") User user, @RequestParam(value = "roles", required = false) String[] roles) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
@@ -56,7 +60,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "admin/add", method = RequestMethod.POST)
+    @PostMapping(value = "admin/add")
     public ModelAndView addUser(@ModelAttribute("user") User user,@RequestParam(value = "roles", required = false) String[] roles) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
@@ -64,7 +68,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "admin/add", method = RequestMethod.GET)
+    @GetMapping(value = "admin/add")
     public ModelAndView addUser() {
         ModelAndView modelAndView = new ModelAndView();
         ArrayList<Role> roles = (ArrayList<Role>) adminService.allRoles();
@@ -72,7 +76,7 @@ public class AdminController {
         modelAndView.addObject("allRoles", roles);
         return modelAndView;
     }
-    @RequestMapping("/admin/{username}")
+    @GetMapping("/admin/{username}")
     public String getUser(@PathVariable("username") String username, Model model) {
         model.addAttribute("user", userService.loadUserByUsername(username));
         return "admin";

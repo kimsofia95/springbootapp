@@ -11,4 +11,5 @@ public interface AdminService {
     void deleteUser(User user);
     void addUser(User user, String[] roles);
     void ChangeUser(User user, String[] roles);
+    void createDefaultRows();
 }
