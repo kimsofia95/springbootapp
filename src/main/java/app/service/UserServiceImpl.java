@@ -54,7 +54,6 @@ public class UserServiceImpl implements UserService {
             rol.add(showRole(role_id));
         }
         user.setRoles(rol);
-        user.setRoles(rol);
         userRepository.save(user);
     }
 
