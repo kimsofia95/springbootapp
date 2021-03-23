@@ -48,15 +48,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user, String[] role) {
+    public void update(User user, int[] roles) {
         Set<Role> rol = new HashSet<>();
-        for (String s : role) {
-            if (s.equals("ROLE_ADMIN")) {
-                rol.add(showRole(1));
-            } else {
-                rol.add(showRole(2));
-            }
+        for (int role_id: roles) {
+            rol.add(showRole(role_id));
         }
+        user.setRoles(rol);
         user.setRoles(rol);
         userRepository.save(user);
     }

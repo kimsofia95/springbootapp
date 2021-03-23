@@ -13,7 +13,7 @@ public interface UserService {
 
     User show(int id);
 
-    void update(User user, String[] role);
+    void update(User user, int[] role);
 
     Role showRole(int id);
 

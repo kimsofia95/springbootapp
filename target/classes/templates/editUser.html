@@ -5,21 +5,20 @@
     <title>New person</title>
 </head>
 <body>
-<form th:if="${user != null}" th:method="POST" th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
+<form th:if="${user != null}" th:method="POST" th:action="@{/admin/edit}" th:object="${user}">
     <label for="name">Name:</label>
     <input type="text" th:field="*{name}" id="name">
     <br/>
     <label for="password">Password:</label>
     <input type="text" th:field="*{password}" id="password">
     <br/>
-    <label>Role:
-        <select multiple size="2" name="select_roles" class="form-control" id="exampleFormControlSelect3">
-            <option th:each="role : ${allRoles}" th:value="${role.getRole()}"
-                    th:text="${role.getAuthority() == 'ROLE_ADMIN'} ? 'ROLE_ADMIN' : 'ROLE_USER'"></option>
-        </select>
-        <br/>
-    </label>
-    <input type="submit" value="Create!"/>
+    <ul>
+        <li th:each="role : ${allRoles}">
+            <input type="checkbox" name="roles" th:field="*{roles}" th:value="${role.getId()}"
+                   th:text="${role.getRole()}" />
+        </li>
+    </ul>
+    <input type="submit" value="Update"/>
 </form>
 
 <form th:if="${user == null}" th:method="POST" th:action="@{/admin/add}" th:object="${addUser}">
@@ -36,7 +35,7 @@
                    th:text="${role.getRole()}" />
         </li>
     </ul>
-    <input type="submit" value="Create!"/>
+    <input type="submit" value="Create"/>
 </form>
 <div>
     <a href="/logout">Выйти из системы</a>
