@@ -1,7 +1,5 @@
 package app.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -25,7 +23,6 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     @ManyToMany(fetch = FetchType.EAGER)
-    @EqualsAndHashCode.Exclude @ToString.Exclude
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
@@ -103,11 +100,7 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(String roles) {
-        this.roles = new HashSet<>();
-    }
-
-    public void setRolesSecond(Set<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

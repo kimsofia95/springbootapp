@@ -1,7 +1,5 @@
 package app.service;
 
-import app.dao.UserDao;
-import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,13 +8,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 
-@Component
 @Service
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    private UserDao userDao;
+    private final UserServiceImpl userService;
+
+    public UserDetailsServiceImpl(UserServiceImpl userService) {
+        this.userService = userService;
+    }
 
     // «Пользователь» – это просто Object. В большинстве случаев он может быть
     //  приведен к классу UserDetails.
@@ -24,6 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userDao.getUserByName(s);
+        return userService.findUserByName(s);
     }
 }
