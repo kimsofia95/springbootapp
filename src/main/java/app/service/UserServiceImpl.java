@@ -72,4 +72,17 @@ public class UserServiceImpl implements UserService {
        }
        return null;
     }
+
+    @Override
+    public void createDefaultRows() {
+        Set<Role> rol = new HashSet<>();
+        Role roleAdmin = new Role(1, "ROLE_ADMIN");
+        Role roleUser = new Role(2, "ROLE_USER");
+        rol.add(roleAdmin);
+        rol.add(roleUser);
+        User user = new User(1, "admin", "admin", rol);
+        roleRepository.save(roleAdmin);
+        roleRepository.save(roleUser);
+        userRepository.save(user);
+    }
 }

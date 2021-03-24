@@ -20,4 +20,6 @@ public interface UserService {
     void delete(int id);
 
     User findUserByName(String name);
+
+    void createDefaultRows();
 }
