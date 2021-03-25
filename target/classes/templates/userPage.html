@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User page</title>
 </head>
 <body>
 <div>
-    <h1>Hello</h1>
-    <p th:text="${user.name}">
+    <p th:text="${user.getEmail()}"></p>
+    <p>with roles: </p>
+    <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
+    <a href="/logout">logout</a>
 </div>
-<div>
-    <a href="/logout">Выйти из системы</a>
-</div>
+<table border="user">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Roles</th>
+    </tr>
+    <td th:text="${user.getId()}"></td>
+    <td th:text="${user.getFirstName()}"></td>
+    <td th:text="${user.getLastName()}"></td>
+    <td th:text="${user.getAge()}"></td>
+    <td th:text="${user.getEmail()}"></td>
+    <td>
+        <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
+    </td>
+    </tr>
+</table>
 </body>
 </html>

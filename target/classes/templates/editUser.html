@@ -6,39 +6,62 @@
 </head>
 <body>
 <form th:if="${user != null}" th:method="POST" th:action="@{/admin/edit}" th:object="${user}">
-    <label for="name">Name:</label>
-    <input type="text" th:field="*{name}" id="name">
+    <label for="id">ID:</label>
+    <input type="hidden" th:field="*{id}" id="id">
+    <br/>
+    <label for="first_name">First Name:</label>
+    <input type="text" th:field="*{firstName}" id="first_name">
+    <br/>
+    <label for="last_name">Last Name:</label>
+    <input type="text" th:field="*{lastName}" id="last_name">
+    <br/>
+    <label for="age">Age:</label>
+    <input type="text" th:field="*{age}" id="age">
+    <br/>
+    <label for="email">Email:</label>
+    <input type="text" th:field="*{email}" id="email">
     <br/>
     <label for="password">Password:</label>
     <input type="text" th:field="*{password}" id="password">
     <br/>
-    <ul>
-        <li th:each="role : ${allRoles}">
-            <input type="checkbox" name="roles" th:field="*{roles}" th:value="${role.getId()}"
-                   th:text="${role.getRole()}" />
-        </li>
-    </ul>
+    <label>Roles:
+        <select multiple th:size="${allRoles.size()}" name="roles" class="form-control" id="exampleFormControlSelect1">
+            <option th:each="role : ${allRoles}" th:value="${role.getId()}"
+                    th:text="${role.getRole()}"></option>
+        </select>
+        <br/>
+    </label>
     <input type="submit" value="Update"/>
 </form>
 
 <form th:if="${user == null}" th:method="POST" th:action="@{/admin/add}" th:object="${addUser}">
 
-    <label for="name1">Name:</label>
-    <input type="text" th:field="*{name}" id="name1">
+    <label for="first_name1">First Name:</label>
+    <input type="text" th:field="*{firstName}" id="first_name1">
+    <br/>
+    <label for="last_name1">Last Name:</label>
+    <input type="text" th:field="*{lastName}" id="last_name1">
+    <br/>
+    <label for="age1">Age:</label>
+    <input type="text" th:field="*{age}" id="age1">
+    <br/>
+    <label for="email1">Email:</label>
+    <input type="text" th:field="*{email}" id="email1">
     <br/>
     <label for="password1">Password:</label>
     <input type="text" th:field="*{password}" id="password1">
     <br/>
-    <ul>
-        <li th:each="role : ${allRoles}">
-            <input type="checkbox" name="roles" th:field="*{roles}" th:value="${role.getId()}"
-                   th:text="${role.getRole()}" />
-        </li>
-    </ul>
+    <label>Roles:
+        <select multiple th:size="${allRoles.size()}" name="roles" class="form-control" id="exampleFormControlSelect2">
+            <option th:each="role : ${allRoles}" th:value="${role.getId()}"
+                    th:text="${role.getRole()}"></option>
+        </select>
+        <br/>
+    </label>
     <input type="submit" value="Create"/>
 </form>
 <div>
-    <a href="/logout">Выйти из системы</a>
+    <a href="/logout">logout</a>
 </div>
 </body>
 </html>

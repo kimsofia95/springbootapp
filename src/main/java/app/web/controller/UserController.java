@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +19,15 @@ import java.util.List;
 @RequestMapping("/")
 public class UserController {
 
-	@Transactional
-	@GetMapping(value = "user")
-	public String UserPageId(ModelMap modelMap, @AuthenticationPrincipal User user) {
-		modelMap.addAttribute("user", user);
+	@GetMapping(value = "/user")
+	public String UserPageId(Model model, @AuthenticationPrincipal User user) {
+		model.addAttribute("user", user);
 		return "userPage";
 	}
 
+
+	@GetMapping(value = "login")
+	public String loginPage() {
+		return "login";
+	}
 }

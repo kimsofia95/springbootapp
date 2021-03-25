@@ -13,15 +13,21 @@
 </table>
 <table border="allUser">
     <tr>
-        <th>Login</th>
-        <th>Password</th>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
         <th>Roles</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
     <tr th:each="user : ${allUsers}">
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.password}"></td>
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getEmail()}"></td>
         <td>
             <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
         </td>
@@ -33,7 +39,7 @@
     <a href="/admin/add">Create new user</a>
 </div>
 <div>
-    <a href="/logout">Выйти из системы</a>
+    <a href="/logout">logout</a>
 </div>
 </body>
 </html>
