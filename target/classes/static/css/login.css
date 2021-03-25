@@ -1,0 +1,8 @@
+body {
+    background-color: #F8F9FA;
+}
+
+input[type="submit" i] {
+    color: white;
+    background-color: #007BFF;
+}

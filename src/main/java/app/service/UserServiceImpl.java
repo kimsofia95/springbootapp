@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
         Role roleUser = new Role(2, "ROLE_USER");
         rol.add(roleAdmin);
         rol.add(roleUser);
-        User user = new User(1, "sofia", "kim", 25, "admin", "admin", rol);
+        User user = new User(1, "sofia", "kim", 25, "admin@mail.ru", "admin", rol);
         roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
         userRepository.save(user);

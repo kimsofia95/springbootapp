@@ -3,14 +3,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/login.css"
+          rel="stylesheet">
+    <title>Login Page</title>
 </head>
 <body>
-<div>
-    <form method="post" action="/login">
-        <input name="j_username"/>
-        <input name="j_password"/>
-        <input type="submit"/>
+<h1>Please sign in</h1>
+<div class="container">
+    <form class="form-check-input" method="post" action="/login">
+        <input class="input-append" name="j_username" type="email" placeholder="Email address"/>
+        <br/>
+        <input name="j_password" type="password"  placeholder="Password"/>
+        <br/>
+        <input type="submit" value="Sign in"/>
     </form>
 </div>
 </body>
