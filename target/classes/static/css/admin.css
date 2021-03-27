@@ -1,0 +1,16 @@
+.btn-success {
+    background-color: #009688;
+    border-color: #009688;
+}
+
+.fade:not(.show) {
+    opacity: 1;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}

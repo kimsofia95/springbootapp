@@ -31,10 +31,24 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String userList(ModelMap model, @AuthenticationPrincipal User user) {
+    public String adminPage(ModelMap model, @AuthenticationPrincipal User user) {
+        ArrayList<Role> roles = (ArrayList<Role>) roleService.getAllRoles();
         model.addAttribute("allUsers", userService.getAllUsers());
         model.addAttribute("user", user);
+        model.addAttribute("addUser", new User());
+        model.addAttribute("allRoles", roles);
         return "admin";
+    }
+
+    @PostMapping(value = "/admin")
+    public String addUser(@ModelAttribute("user") User user,@RequestParam(value = "roles", required = false) int[] roles) {
+        Set<Role> rol = new HashSet<>();
+        for (int role_id: roles) {
+            rol.add(userService.showRole(role_id));
+        }
+        user.setRoles(rol);
+        userService.save(user);
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/delete/{userid}")
@@ -58,18 +72,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping(value = "/admin/add")
-    public String addUser(@ModelAttribute("user") User user,@RequestParam(value = "roles", required = false) int[] roles) {
-        Set<Role> rol = new HashSet<>();
-        for (int role_id: roles) {
-            rol.add(userService.showRole(role_id));
-        }
-        user.setRoles(rol);
-        userService.save(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping(value = "admin/add")
+    @GetMapping(value = "admin#new_user")
     public String addUser(ModelMap model) {
         model.addAttribute("allRoles", roleService.getAllRoles());
         model.addAttribute("addUser", new User());

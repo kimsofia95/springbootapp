@@ -6,6 +6,8 @@
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
     <link href="css/userPage.css"
           rel="stylesheet">
+    <link href="css/admin.css"
+          rel="stylesheet">
     <title>All Users</title>
 </head>
 <body>
@@ -19,40 +21,94 @@
         <a href="/logout">logout</a>
     </div>
 </div>
-<table>
-    <tr>
-        <th>All Users</th>
-    </tr>
-</table>
-<table border="allUser">
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Roles</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    <tr th:each="user : ${allUsers}">
-        <td th:text="${user.getId()}"></td>
-        <td th:text="${user.getFirstName()}"></td>
-        <td th:text="${user.getLastName()}"></td>
-        <td th:text="${user.getAge()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td>
-            <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
-        </td>
-        <td><a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Edit</a></td>
-        <td><a th:href="@{/admin/delete/{id}(id=${user.getId()})}">Delete</a></td>
-    </tr>
-</table>
-<div>
-    <a href="/admin/add">Create new user</a>
+<div class="container">
+    <div class="row user_roles">
+        <div class="user_roles_container">
+            <a th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}">
+            </a>
+        </div>
+    </div>
+    <div class="row user_info_page">
+        <div>
+            <h1>Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#all_users">Users table</a></li>
+                <li><a data-toggle="tab" href="#new_user">New User</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="all_users" class="tab-pane fade in active custom_table">
+                    <div class="header">
+                        <p>All users</p>
+                    </div>
+                    <div class="content">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${allUsers}">
+                                <td th:text="${user.getId()}"></td>
+                                <td th:text="${user.getFirstName()}"></td>
+                                <td th:text="${user.getLastName()}"></td>
+                                <td th:text="${user.getAge()}"></td>
+                                <td th:text="${user.getEmail()}"></td>
+                                <td>
+                                    <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-success">Edit</button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="new_user" class="tab-pane fade">
+                    <form th:method="POST" th:action="@{/admin}" th:object="${addUser}">
+                        <label for="first_name1">First Name:</label>
+                        <input type="text" th:field="*{firstName}" id="first_name1">
+                        <br/>
+                        <label for="last_name1">Last Name:</label>
+                        <input type="text" th:field="*{lastName}" id="last_name1">
+                        <br/>
+                        <label for="age1">Age:</label>
+                        <input type="text" th:field="*{age}" id="age1">
+                        <br/>
+                        <label for="email1">Email:</label>
+                        <input type="text" th:field="*{email}" id="email1">
+                        <br/>
+                        <label for="password1">Password:</label>
+                        <input type="text" th:field="*{password}" id="password1">
+                        <br/>
+                        <label>Roles:
+                            <select multiple th:size="${allRoles.size()}" name="roles" class="form-control"
+                                    id="exampleFormControlSelect2">
+                                <option th:each="role : ${allRoles}" th:value="${role.getId()}"
+                                        th:text="${role.getRole()}"></option>
+                            </select>
+                            <br/>
+                        </label>
+                        <input type="submit" value="Create"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a href="/logout">logout</a>
-</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
