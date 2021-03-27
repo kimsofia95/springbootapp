@@ -6,6 +6,7 @@ import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +31,9 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String userList(Model model) {
+    public String userList(ModelMap model, @AuthenticationPrincipal User user) {
         model.addAttribute("allUsers", userService.getAllUsers());
+        model.addAttribute("user", user);
         return "admin";
     }
 

@@ -6,3 +6,24 @@ input[type="submit" i] {
     color: white;
     background-color: #007BFF;
 }
+
+.btn {
+    width: 100%;
+    margin-top: 7px;
+    padding: 10px;
+}
+
+.login-size {
+    width: 30%;
+}
+
+.header {
+    margin-bottom: 20px;
+    font-size: 1.9rem;
+    margin-left: 12px;
+    font-weight: 700;
+}
+
+.container.h-100 {
+    margin-top: 50px;
+}

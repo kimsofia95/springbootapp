@@ -4,21 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
     <link href="css/login.css"
           rel="stylesheet">
     <title>Login Page</title>
 </head>
 <body>
-<h1>Please sign in</h1>
-<div class="container">
-    <form class="form-check-input" method="post" action="/login">
-        <input class="input-append" name="j_username" type="email" placeholder="Email address"/>
-        <br/>
-        <input name="j_password" type="password"  placeholder="Password"/>
-        <br/>
-        <input type="submit" value="Sign in"/>
-    </form>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="login-size">
+            <h1 class="header">Please sign in</h1>
+            <form class="col-12" method="post" action="/login">
+                <div class="form-group">
+                    <input class="form-control" name="j_username" type="email" placeholder="Email address"/>
+                    <input class="form-control" name="j_password" type="password" placeholder="Password"/>
+                    <button type="submit" class="btn btn-primary">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

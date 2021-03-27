@@ -2,33 +2,67 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css} "/>
+    <link href="css/userPage.css"
+          rel="stylesheet">
     <title>User page</title>
 </head>
 <body>
-<div>
-    <p th:text="${user.getEmail()}"></p>
-    <p>with roles: </p>
-    <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
-    <a href="/logout">logout</a>
-</div>
-<table border="user">
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Roles</th>
-    </tr>
-    <td th:text="${user.getId()}"></td>
-    <td th:text="${user.getFirstName()}"></td>
-    <td th:text="${user.getLastName()}"></td>
-    <td th:text="${user.getAge()}"></td>
-    <td th:text="${user.getEmail()}"></td>
-    <td>
+<div class="flex-header">
+    <div class="row userinfo">
+        <p class="email" th:text="${user.getEmail()}"></p>
+        <p>with roles: </p>
         <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
-    </td>
-    </tr>
-</table>
+    </div>
+    <div class="row logout">
+        <a href="/logout">logout</a>
+    </div>
+</div>
+<div class="container">
+    <div class="row user_roles">
+        <div class="user_roles_container">
+            <button th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}" type="submit"
+                    class="btn btn-primary">
+            </button>
+        </div>
+    </div>
+    <div class="row user_info_page">
+        <div>
+            <h1>User information page</h1>
+            <div class="custom_table">
+                <div class="header">
+                <p>About user</p>
+                </div>
+                <div class="content">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th th:text="${user.getId()}"></th>
+                            <td th:text="${user.getFirstName()}"></td>
+                            <td th:text="${user.getLastName()}"></td>
+                            <td th:text="${user.getAge()}"></td>
+                            <td th:text="${user.getEmail()}"></td>
+                            <td>
+                                <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

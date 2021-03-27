@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <bootstrap.version>4.0.0-2</bootstrap.version>
+        <bootstrap.version>4.3.1</bootstrap.version>
         <webjars-locator.version>0.30</webjars-locator.version>
         <lombok.version>1.18.2</lombok.version>
         <commonmark.version>0.13.1</commonmark.version>
@@ -87,6 +87,11 @@
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>1.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>${webjars-locator.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
