@@ -51,7 +51,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/delete/{userid}")
+    @PostMapping("/admin/delete/{userid}")
     public String deleteUser(Model model, @PathVariable int userid) {
         userService.delete(userid);
         return "redirect:/admin";
@@ -69,6 +69,7 @@ public class AdminController {
         model.addAttribute("addUser", new User());
         return "editUser";
     }
+
     @GetMapping("/admin/{userid}")
     public String getUser(@PathVariable("userid") int userid, Model model) {
         model.addAttribute("user", userService.show(userid));
