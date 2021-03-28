@@ -63,13 +63,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "admin#new_user")
-    public String addUser(ModelMap model) {
-        model.addAttribute("allRoles", roleService.getAllRoles());
-        model.addAttribute("addUser", new User());
-        return "editUser";
-    }
-
     @GetMapping("/admin/{userid}")
     public String getUser(@PathVariable("userid") int userid, Model model) {
         model.addAttribute("user", userService.show(userid));
