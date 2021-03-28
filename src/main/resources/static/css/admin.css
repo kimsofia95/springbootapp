@@ -69,3 +69,10 @@ a.active {
 #new_user select a {
     width: 365px;
 }
+.modal-dialog {
+    max-width: 700px;
+}
+.modal-body {
+    padding-left: 30%;
+    padding-right: 30%;
+}
