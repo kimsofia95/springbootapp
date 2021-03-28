@@ -57,18 +57,9 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/admin/edit/{userid}")
-    public String editPage(ModelMap model, @PathVariable("userid") int userid) {
-        User user = userService.show(userid);
-        ArrayList<Role> roles = (ArrayList<Role>) roleService.getAllRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("allRoles", roles);
-        return "editUser";
-    }
-
-    @PostMapping(value = "/admin/edit")
-    public String editUser(@ModelAttribute("user") User user, @RequestParam(value = "roles", required = false) int[] roles) {
-        userService.update(user, roles);
+    @PostMapping(value = "/admin/edit/{userid}")
+    public String editUser(@PathVariable("userid") int userid, @ModelAttribute(value = "submit") User user) {
+        userService.save(user);
         return "redirect:/admin";
     }
 
