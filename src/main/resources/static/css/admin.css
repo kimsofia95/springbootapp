@@ -54,6 +54,7 @@ a.active {
 
 .form-group label {
     font-weight: 700;
+    width: 100%;
 }
 .custom_table {
     margin-top: 0;
@@ -75,4 +76,7 @@ a.active {
 .modal-body {
     padding-left: 30%;
     padding-right: 30%;
+}
+.modal-footer .btn {
+    width: 80px;
 }
