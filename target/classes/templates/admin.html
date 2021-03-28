@@ -26,8 +26,11 @@
         <div class="user_roles_container">
             <ul class="nav nav-pills"  id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" data-toggle="pill" role="tab" aria-controls="user" th:id="${role.getRole()}" th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"
-                       th:href="@{${role.getRole() == 'ROLE_ADMIN' ? '#admin' : '#user'}}">
+                    <a class="nav-link active" data-toggle="pill" role="tab" aria-controls="user" th:id="admin_role" th:text="ADMIN"
+                       href="#admin">
+                    </a>
+                    <a class="nav-link" data-toggle="pill" role="tab" aria-controls="user" th:id="user_role" th:text="USER"
+                       href="#user">
                     </a>
                 </li>
             </ul>
@@ -72,7 +75,7 @@
             </div>
         </div>
 
-    <div class="tab-pane row users_info_page" id="admin" role="tabpanel" aria-labelledby="admin-page-tab">
+    <div class="tab-pane show active row users_info_page" id="admin" role="tabpanel" aria-labelledby="admin-page-tab">
         <div>
             <h1>Admin panel</h1>
             <ul class="nav nav-tabs">
