@@ -24,11 +24,55 @@
 <div class="container">
     <div class="row user_roles">
         <div class="user_roles_container">
-            <a th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}">
-            </a>
+            <ul class="nav nav-pills"  id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" data-toggle="pill" role="tab" aria-controls="user" th:id="${role.getRole()}" th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"
+                       th:href="@{${role.getRole() == 'ROLE_ADMIN' ? '#admin' : '#user'}}">
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="row user_info_page">
+
+    <div class="tab-content">
+        <div class="tab-pane row user_info_page" id="user" role="tabpanel" aria-labelledby="user-page-tab">
+            <div>
+                <h1>User information page</h1>
+                <div class="custom_table">
+                    <div class="header">
+                        <p>About user</p>
+                    </div>
+                    <div class="content">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Roles</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${user.getId()}"></td>
+                                <td th:text="${user.getFirstName()}"></td>
+                                <td th:text="${user.getLastName()}"></td>
+                                <td th:text="${user.getAge()}"></td>
+                                <td th:text="${user.getEmail()}"></td>
+                                <td>
+                                    <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="tab-pane row users_info_page" id="admin" role="tabpanel" aria-labelledby="admin-page-tab">
         <div>
             <h1>Admin panel</h1>
             <ul class="nav nav-tabs">
@@ -36,7 +80,7 @@
                 <li><a data-toggle="tab" href="#new_user">New User</a></li>
             </ul>
             <div class="tab-content">
-                <div id="all_users" class="tab-pane fade in active custom_table">
+                <div id="all_users" class="custom_table tab-pane fade in active">
                     <div class="header">
                         <p>All users</p>
                     </div>
@@ -76,39 +120,68 @@
                     </div>
                 </div>
                 <div id="new_user" class="tab-pane fade">
-                    <form th:method="POST" th:action="@{/admin}" th:object="${addUser}">
-                        <label for="first_name1">First Name:</label>
-                        <input type="text" th:field="*{firstName}" id="first_name1">
-                        <br/>
-                        <label for="last_name1">Last Name:</label>
-                        <input type="text" th:field="*{lastName}" id="last_name1">
-                        <br/>
-                        <label for="age1">Age:</label>
-                        <input type="text" th:field="*{age}" id="age1">
-                        <br/>
-                        <label for="email1">Email:</label>
-                        <input type="text" th:field="*{email}" id="email1">
-                        <br/>
-                        <label for="password1">Password:</label>
-                        <input type="text" th:field="*{password}" id="password1">
-                        <br/>
-                        <label>Roles:
-                            <select multiple th:size="${allRoles.size()}" name="roles" class="form-control"
-                                    id="exampleFormControlSelect2">
-                                <option th:each="role : ${allRoles}" th:value="${role.getId()}"
-                                        th:text="${role.getRole()}"></option>
-                            </select>
-                            <br/>
-                        </label>
-                        <input type="submit" value="Create"/>
-                    </form>
+                    <div class="custom_table">
+                        <div class="header">
+                            <p>Add new user</p>
+                        </div>
+                        <div class="content">
+                            <form th:method="POST" th:action="@{/admin}" th:object="${addUser}">
+                                <div class="form-group">
+                                    <label class="label" for="first_name1">First Name</label>
+                                    <input type="text" class="form-control" th:field="*{firstName}" id="first_name1">
+                                    <br/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name1">Last Name</label>
+                                    <input type="text" class="form-control" th:field="*{lastName}" id="last_name1">
+                                    <br/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="age1">Age</label>
+                                    <input type="text" class="form-control" th:field="*{age}" id="age1">
+                                    <br/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email1">Email</label>
+                                    <input type="email" class="form-control" th:field="*{email}" id="email1">
+                                    <br/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password1">Password</label>
+                                    <input type="text" class="form-control" th:field="*{password}" id="password1">
+                                    <br/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Roles
+                                        <select th:class="form-control" multiple th:size="${allRoles.size()}"
+                                                name="roles" class="form-control"
+                                                id="exampleFormControlSelect2">
+                                            <option th:each="role : ${allRoles}" th:value="${role.getId()}"
+                                                    th:text="${role.getRole()}"></option>
+                                        </select>
+                                        <br/>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success form-control" value="Add new user"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 html, body {
     height: 100%;
-    overflow: hidden;
 }
 
 tbody, td, tfoot, th, thead, tr {
@@ -101,4 +100,8 @@ tbody, td, tfoot, th, thead, tr {
     padding-top: 9px;
     padding-left: 20px;
     font-weight: 600;
+}
+
+.tab-content {
+    width: 100%;
 }

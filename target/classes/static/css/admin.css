@@ -1,10 +1,28 @@
-.btn-success {
+#all_users .btn-success {
     background-color: #009688;
     border-color: #009688;
 }
 
+.users_info_page {
+    background-color: #F8F9FA;
+    width: 100%;
+    padding-left: 40px;
+    padding-top: 20px;
+    top: 70px;
+    right: 35px;
+    padding-right: 35px;
+}
+.users_info_page div {
+    width: 100%;
+}
 .fade:not(.show) {
     opacity: 1;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
 }
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
@@ -13,4 +31,38 @@
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
+}
+
+a.active {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+}
+
+.form-group {
+    margin-bottom: 0;
+    text-align:  center;
+}
+
+.form-group label {
+    font-weight: 700;
+}
+
+#new_user .custom_table .content {
+    padding-left: 35%;
+    padding-right: 35%;
+}
+#new_user input[type="submit" i] {
+    width: 140px;
+}
+#new_user select a {
+    width: 365px;
 }
