@@ -40,29 +40,6 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping(value = "/admin")
-    public String addUser(@ModelAttribute("user") User user,@RequestParam(value = "roles", required = false) int[] roles) {
-        Set<Role> rol = new HashSet<>();
-        for (int role_id: roles) {
-            rol.add(userService.showRole(role_id));
-        }
-        user.setRoles(rol);
-        userService.save(user);
-        return "redirect:/admin";
-    }
-
-    @PostMapping("/admin/delete/{userid}")
-    public String deleteUser(Model model, @PathVariable int userid) {
-        userService.delete(userid);
-        return "redirect:/admin";
-    }
-
-    @PostMapping(value = "/admin/edit/{userid}")
-    public String editUser(@PathVariable("userid") int userid, @ModelAttribute(value = "submit") User user) {
-        userService.save(user);
-        return "redirect:/admin";
-    }
-
     @GetMapping("/admin/{userid}")
     public String getUser(@PathVariable("userid") int userid, Model model) {
         model.addAttribute("user", userService.show(userid));
