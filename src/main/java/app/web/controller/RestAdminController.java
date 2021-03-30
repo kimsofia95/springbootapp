@@ -6,6 +6,7 @@ import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,19 +37,12 @@ public class RestAdminController {
     }
 
     @PostMapping("/admin/delete/{userid}")
-    public String deleteUser(Model model, @PathVariable int userid) {
+    public void deleteUser(Model model, @PathVariable int userid) {
         userService.delete(userid);
-        return "redirect:/admin";
     }
 
-    @PostMapping(value = "/admin/edit/{userid}")
-    public  ResponseEntity<?> editUser(@PathVariable("userid") int userid, @RequestBody User user) {
-        try {
-            User existUser = userService.show(userid);
-            userService.save(user);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @PutMapping(value = "/admin/edit")
+    public void editUser(@RequestBody User user) {
+        userService.save(user);
     }
 }

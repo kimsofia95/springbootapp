@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:fragment="add_user">
-    <form th:method="POST" th:action="@{/admin}" th:object="${addUser}">
+    <form th:object="${addUser}">
         <div class="form-group">
             <label class="label" for="first_name1">First Name</label>
             <input type="text" class="form-control" th:field="*{firstName}" id="first_name1">
