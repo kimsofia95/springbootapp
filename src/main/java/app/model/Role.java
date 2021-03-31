@@ -1,5 +1,6 @@
 package app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +25,7 @@ public class Role implements GrantedAuthority {
     private Integer id;
     @Column(name = "role", unique = true)
     private String role;
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 

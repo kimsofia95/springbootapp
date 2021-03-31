@@ -39,10 +39,4 @@ public class AdminController {
         model.addAttribute("allRoles", roles);
         return "admin";
     }
-
-    @GetMapping("/admin/{userid}")
-    public String getUser(@PathVariable("userid") int userid, Model model) {
-        model.addAttribute("user", userService.show(userid));
-        return "admin";
-    }
 }

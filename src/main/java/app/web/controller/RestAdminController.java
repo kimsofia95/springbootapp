@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 public class RestAdminController {
@@ -41,8 +39,13 @@ public class RestAdminController {
         userService.delete(userid);
     }
 
-    @PutMapping(value = "/admin/edit")
-    public void editUser(@RequestBody User user) {
+    @PostMapping(value = "/admin/edit/{userid}")
+    public void editUser(@RequestBody User user, @PathVariable int userid) {
         userService.save(user);
+    }
+
+    @GetMapping("/api/users")
+    public List<User> allUsers() {
+        return userService.getAllUsers();
     }
 }

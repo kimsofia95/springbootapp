@@ -6,6 +6,7 @@ $(document).delegate('.eBtn_', 'click', function (event) {
     let href = $(this).attr('href');
     console.log(href);
     $.get(href, function (user, status) {
+        console.log(user);
         $('.user_update #id').val(user.id);
         $('.user_update #first_name').val(user.firstName);
         $('.user_update #last_name').val(user.lastName);

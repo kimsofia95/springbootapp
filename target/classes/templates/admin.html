@@ -8,6 +8,7 @@
           rel="stylesheet">
     <link href="css/admin.css"
           rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>All Users</title>
 </head>
 <body>
@@ -101,36 +102,14 @@
                                 <th>Delete</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr th:each="user_i : ${allUsers}">
-                                <td th:text="${user_i.getId()}"></td>
-                                <td th:text="${user_i.getFirstName()}"></td>
-                                <td th:text="${user_i.getLastName()}"></td>
-                                <td th:text="${user_i.getAge()}"></td>
-                                <td th:text="${user_i.getEmail()}"></td>
-                                <td>
-                                    <p th:each="role : ${user_i.getRoles()}" th:text="*{role.getRole()}"></p>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-success eBtn_" data-toggle="modal"
-                                            th:attr="data-target='#edit' + ${user_i.getId()}"
-                                            data-target="#staticBackdrop">Edit
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal"
-                                            th:attr="data-target='#delete' + ${user_i.getId()}"
-                                            data-target="#staticBackdrop">Delete</button>
-                                </td>
-
-                                <!--The Modal-->
-                                <div th:replace="fragments/modal :: modal_edit"></div>
-
-                                <!--The Modal-->
-                                <div th:replace="fragments/modal :: modal_delete"></div>
-                            </tr>
+                            <tbody id= "all_users_content">
+                            <!--Render all users-->
                             </tbody>
                         </table>
+                        <!--The Modal-->
+                       <!-- <div th:replace="fragments/modal :: modal_edit"></div>
+
+                        <div th:replace="fragments/modal :: modal_delete"></div> -->
                     </div>
                 </div>
                 <div id="new_user" class="tab-pane fade">
@@ -149,9 +128,6 @@
     </div>
     </div>
 </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
@@ -160,5 +136,6 @@
             crossorigin="anonymous"></script>
 <script src="js/updateUser.js"></script>
 <script src="js/fullmodal.js"></script>
+<script src="js/adminpage.js"></script>
 </body>
 </html>
