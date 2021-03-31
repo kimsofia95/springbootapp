@@ -58,17 +58,8 @@
                                 <th>Roles</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td th:text="${user.getId()}"></td>
-                                <td th:text="${user.getFirstName()}"></td>
-                                <td th:text="${user.getLastName()}"></td>
-                                <td th:text="${user.getAge()}"></td>
-                                <td th:text="${user.getEmail()}"></td>
-                                <td>
-                                    <p th:each="role : ${user.getRoles()}" th:text="*{role.getRole()}"></p>
-                                </td>
-                            </tr>
+                            <tbody id="user_content">
+                            <!--Render user-->
                             </tbody>
                         </table>
                     </div>
@@ -137,5 +128,6 @@
 <script src="js/updateUser.js"></script>
 <script src="js/fullmodal.js"></script>
 <script src="js/adminpage.js"></script>
+<script src="js/userpage.js"></script>
 </body>
 </html>

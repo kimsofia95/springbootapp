@@ -24,23 +24,7 @@ const renderUsers = (users => {
                 " " +
                 '<a href="api/users/' + users[i].id + '" class="btn btn-danger dBtn_" data-toggle="modal" data-target="#deleteModal">'
                 + 'Delete</a></td></tr>';
-
-        /*    <td>
-                <button type="button" className="btn btn-success eBtn_" data-toggle="modal"
-                        th:attr="data-target='#edit' + ${user_i.getId()}"
-                        data-target="#staticBackdrop">Edit
-                </button>
-            </td>
-            <td>
-                <button type="button" className="btn btn-danger" data-toggle="modal"
-                        th:attr="data-target='#delete' + ${user_i.getId()}"
-                        data-target="#staticBackdrop">Delete
-                </button>
-            </td>*/
         }
-       // users.forEach((user) => {
-        //})
-        // ----end for loop
 
         usersList.innerHTML = temp;
     }
