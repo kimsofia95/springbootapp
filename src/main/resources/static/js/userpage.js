@@ -1,6 +1,5 @@
 const userList = document.getElementById('user_content')
 const renderUser = (user => {
-    console.log(user.fisrtName);
     var temp = "";
     temp += "<tr id=" + user.id + ">";
     temp += "<td>" + user.id + "</td>";
