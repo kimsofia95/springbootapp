@@ -5,6 +5,8 @@ import app.model.User;
 import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,8 +39,8 @@ public class RestAdminController {
         userService.delete(userid);
     }
 
-    @PostMapping(value = "/admin/edit/{userid}")
-    public void editUser(@RequestBody User user, @PathVariable int userid) {
+    @PutMapping(value = "/admin/edit")
+    public void editUser(@RequestBody User user) {
         userService.save(user);
     }
 

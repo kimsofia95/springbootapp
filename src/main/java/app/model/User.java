@@ -28,13 +28,13 @@ public class User implements UserDetails {
     private String email; // уникальное значение
     @Column(name = "password")
     private String password;
-    @JsonIgnore
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+   // @JoinTable(name = "user_roles",
+       //     joinColumns = @JoinColumn(name = "user_id"),
+        //    inverseJoinColumns = @JoinColumn(name = "role_id")
+    //)
+    private Collection<Role> roles;
 
     public User() {
 
@@ -129,25 +129,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, age, email, password, roles);
     }
 
     @Override

@@ -25,9 +25,6 @@ public class Role implements GrantedAuthority {
     private Integer id;
     @Column(name = "role", unique = true)
     private String role;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
 
     public Role(Integer id, String role) {
         this.id = id;
@@ -53,13 +50,6 @@ public class Role implements GrantedAuthority {
     public void setRole(String role) {
         this.role = role;
     }
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 
     @Override
     public String getAuthority() {
@@ -71,20 +61,6 @@ public class Role implements GrantedAuthority {
         return "Role{" +
                 "id=" + id +
                 ", role='" + role + '\'' +
-                ", users=" + users +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role1 = (Role) o;
-        return Objects.equals(id, role1.id) && Objects.equals(role, role1.role) && Objects.equals(users, role1.users);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, role, users);
     }
 }
