@@ -1,6 +1,6 @@
 const userList = document.getElementById('user_content')
 const renderUser = (user => {
-    var temp = "";
+    let temp = "";
     temp += "<tr id=" + user.id + ">";
     temp += "<td>" + user.id + "</td>";
     temp += "<td>" + user.firstName + "</td>";

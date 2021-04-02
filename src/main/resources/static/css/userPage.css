@@ -45,6 +45,9 @@ tbody, td, tfoot, th, thead, tr {
     background-color: #F8F9FA;
 }
 
+.adminpage .user_info_page {
+    height: 100%;
+}
 .user_info_page {
     background-color: #F8F9FA;
     width: 100%;

@@ -1,7 +1,7 @@
 const usersList = document.getElementById('all_users_content')
 const renderUsers = (users => {
     if (users.length > 0) {
-        var temp = "";
+        let temp = "";
         for (let i = users.length - 1; i >= 0; i--) {
             temp += "<tr id=" + users[i].id + ">";
             temp += "<td>" + users[i].id + "</td>";
@@ -31,7 +31,6 @@ const renderUsers = (users => {
 })
 
 function show() {
-// GET запрос и заполнение админ таблицы
     fetch("http://localhost:8080/api/users")
         .then(res => res.json())
         .then(data => renderUsers(data))

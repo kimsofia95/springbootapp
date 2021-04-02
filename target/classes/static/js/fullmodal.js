@@ -1,7 +1,5 @@
-// наполнение edit модалки
 $(document).delegate('.eBtn_', 'click', function (event) {
     event.preventDefault();
-     console.log('было нажатие на edit');
 
     let href = $(this).attr('href');
     $.get(href, function (user, status) {
@@ -16,10 +14,9 @@ $(document).delegate('.eBtn_', 'click', function (event) {
     $('.user_update').modal();
 });
 
-// наполнение delete модалки
 $(document).delegate('.dBtn_', 'click' ,function (event) {
     event.preventDefault();
-    // console.log('было нажатие а del');
+
     let href = $(this).attr('href');
 
     $.get(href, function (user, status) {
