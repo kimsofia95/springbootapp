@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@RequestMapping("/api")
 public class RestAdminController {
     private final UserService userService;
     private final RoleService roleService;
@@ -24,36 +25,31 @@ public class RestAdminController {
         this.roleService = roleService;
     }
 
-    @PostMapping(value = "/admin")
-    public void addUser(@RequestBody User user, @RequestParam(value = "roles", required = false) int[] roles) {
-        Set<Role> rol = new HashSet<>();
-        for (int role_id: roles) {
-            rol.add(userService.showRole(role_id));
-        }
-        user.setRoles(rol);
+    @PostMapping(value = "/add")
+    public void addUser(@RequestBody User user) {
         userService.save(user);
     }
 
-    @PostMapping("/admin/delete/{userid}")
-    public void deleteUser(Model model, @PathVariable int userid) {
-        userService.delete(userid);
+    @PostMapping("/delete")
+    public void deleteUser(@RequestBody User user) {
+        userService.delete(user.getId());
     }
 
-    @PutMapping(value = "/admin/edit")
+    @PutMapping(value = "/edit")
     public void editUser(@RequestBody User user) {
         userService.save(user);
     }
 
-    @GetMapping("/api/users")
+    @GetMapping("/users")
     public List<User> allUsers() {
         return userService.getAllUsers();
     }
-    @GetMapping(value = "/api/user")
+    @GetMapping(value = "/user")
     public User UserPageId(@AuthenticationPrincipal User user) {
         return user;
     }
 
-    @GetMapping(value = "/api/users/{userid}")
+    @GetMapping(value = "/users/{userid}")
     public Optional<User> userGetById(@PathVariable int userid) {
         return userService.findById(userid);
     }
