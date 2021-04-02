@@ -11,4 +11,6 @@ async function deleteUser() {
             id: formData.get('id'),
         })
     })
+
+    $('#deleteModal').modal('hide');
 }

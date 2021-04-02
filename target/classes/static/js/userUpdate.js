@@ -30,6 +30,8 @@ async function userUpdate() {
             roles: roleSet
         })
     })
+
+    $('#editModal').modal('hide');
 }
 
 /*const form = document.querySelector('.user_update');
