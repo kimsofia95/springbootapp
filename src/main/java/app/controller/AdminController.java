@@ -1,4 +1,4 @@
-package app.web.controller;
+package app.controller;
 
 import app.model.Role;
 import app.model.User;
@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;
@@ -29,19 +30,19 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.getAllUsers());
         return "admin";
     }
 
-    @GetMapping("/admin/delete/{userid}")
-    public String deleteUser(Model model, @PathVariable int userid) {
+    @DeleteMapping("delete/{userid}")
+    public String deletePage(Model model, @PathVariable int userid) {
         userService.delete(userid);
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/admin/edit/{userid}")
+    @GetMapping(value = "edit/{userid}")
     public String editPage(ModelMap model, @PathVariable("userid") int userid) {
         User user = userService.show(userid);
         ArrayList<Role> roles = (ArrayList<Role>) roleService.getAllRoles();
@@ -50,13 +51,13 @@ public class AdminController {
         return "editUser";
     }
 
-    @PostMapping(value = "/admin/edit")
-    public String editUser(@ModelAttribute("user") User user, @RequestParam(value = "roles", required = false) int[] roles) {
-        userService.update(user, roles);
+    @PostMapping(value = "edit")
+    public String editUser(@ModelAttribute("user") User user) {
+        userService.save(user);
         return "redirect:/admin";
     }
 
-    @PostMapping(value = "/admin/add")
+    @PostMapping(value = "add")
     public String addUser(@ModelAttribute("user") User user,@RequestParam(value = "roles", required = false) int[] roles) {
         Set<Role> rol = new HashSet<>();
         for (int role_id: roles) {
@@ -67,15 +68,10 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "admin/add")
+    @GetMapping(value = "add")
     public String addUser(ModelMap model) {
         model.addAttribute("allRoles", roleService.getAllRoles());
         model.addAttribute("addUser", new User());
         return "editUser";
-    }
-    @GetMapping("/admin/{userid}")
-    public String getUser(@PathVariable("userid") int userid, Model model) {
-        model.addAttribute("user", userService.show(userid));
-        return "admin";
     }
 }

@@ -5,7 +5,12 @@
     <title>New person</title>
 </head>
 <body>
+<form th:if="${user != null}" th:method="DELETE" th:action="@{/admin/delete}" th:object="${user}">
+</form>
 <form th:if="${user != null}" th:method="POST" th:action="@{/admin/edit}" th:object="${user}">
+    <label for="id">ID:</label>
+    <input type="hidden" th:field="*{id}" id="id">
+    <br/>
     <label for="name">Name:</label>
     <input type="text" th:field="*{name}" id="name">
     <br/>

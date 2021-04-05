@@ -1,4 +1,4 @@
-package app.web.controller;
+package app.controller;
 
 import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +24,4 @@ public class UserController {
 		modelMap.addAttribute("user", user);
 		return "userPage";
 	}
-
 }

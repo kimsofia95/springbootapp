@@ -1,4 +1,4 @@
-package app.web.config;
+package app.config;
 
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
