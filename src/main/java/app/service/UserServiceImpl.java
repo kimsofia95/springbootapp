@@ -6,6 +6,8 @@ import app.model.User;
 import app.repository.RoleRepository;
 import app.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -74,15 +76,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createDefaultRows() {
-        Set<Role> rol = new HashSet<>();
-        Role roleAdmin = new Role(1, "ROLE_ADMIN");
-        Role roleUser = new Role(2, "ROLE_USER");
-        rol.add(roleAdmin);
-        rol.add(roleUser);
-        User user = new User(1, "sofia", "kim", 25, "admin@mail.ru", "admin", rol);
-        roleRepository.save(roleAdmin);
-        roleRepository.save(roleUser);
+    public void createDefaultRows(Set<Role> roles, User user) {
+        for (Role role: roles) {
+            roleRepository.save(role);
+        }
         userRepository.save(user);
     }
 }

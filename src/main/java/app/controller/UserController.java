@@ -1,4 +1,4 @@
-package app.web.controller;
+package app.controller;
 
 import app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
 public class UserController {
-
-	@GetMapping(value = "/user")
-	public String UserPageId(Model model, @AuthenticationPrincipal User user) {
-		model.addAttribute("user", user);
-		return "userPage";
-	}
-
-
 	@GetMapping(value = "login")
 	public String loginPage() {
 		return "login";
+	}
+	@GetMapping(value = "user")
+	public String UserPageId(ModelMap modelMap, @AuthenticationPrincipal User user) {
+		modelMap.addAttribute("user", user);
+		return "userPage";
 	}
 }
