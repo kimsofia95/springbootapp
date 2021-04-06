@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             String encodedPassword = passwordEncoder().encode(user.getPassword());
             user.setPassword(encodedPassword);
             userService.createDefaultRows(roles, user);
+            defaultRowsCreated = true;
         }
         http.formLogin()
                 // указываем страницу с формой логина
