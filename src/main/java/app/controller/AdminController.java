@@ -5,15 +5,11 @@ import app.model.User;
 import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,8 +32,8 @@ public class AdminController {
         return "admin";
     }
 
-    @DeleteMapping("delete/{userid}")
-    public String deletePage(Model model, @PathVariable int userid) {
+    @GetMapping(value = "delete/{userid}")
+    public String deleteUser(Model model, @PathVariable int userid) {
         userService.delete(userid);
         return "redirect:/admin";
     }
@@ -51,19 +47,14 @@ public class AdminController {
         return "editUser";
     }
 
-    @PostMapping(value = "edit")
+    @PutMapping(value = "edit")
     public String editUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/admin";
     }
 
     @PostMapping(value = "add")
-    public String addUser(@ModelAttribute("user") User user,@RequestParam(value = "roles", required = false) int[] roles) {
-        Set<Role> rol = new HashSet<>();
-        for (int role_id: roles) {
-            rol.add(userService.showRole(role_id));
-        }
-        user.setRoles(rol);
+    public String addUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/admin";
     }

@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("/")
 public class UserController {
 
-	@Transactional
 	@GetMapping(value = "user")
 	public String UserPageId(ModelMap modelMap, @AuthenticationPrincipal User user) {
 		modelMap.addAttribute("user", user);

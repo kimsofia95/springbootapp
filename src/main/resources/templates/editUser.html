@@ -5,7 +5,7 @@
     <title>New person</title>
 </head>
 <body>
-<form th:if="${user != null}" th:method="POST" th:action="@{/admin/edit}" th:object="${user}">
+<form th:if="${user != null}" th:method="PUT" th:action="@{/admin/edit}" th:object="${user}">
     <label for="id">ID:</label>
     <input type="hidden" th:field="*{id}" id="id">
     <br/>
