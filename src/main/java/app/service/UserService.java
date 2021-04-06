@@ -5,6 +5,7 @@ import app.model.Role;
 import app.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
     List<User> getAllUsers();
@@ -21,5 +22,5 @@ public interface UserService {
 
     User findUserByName(String name);
 
-    void createDefaultRows();
+    void createDefaultRows(Set<Role> roles, User user);
 }
