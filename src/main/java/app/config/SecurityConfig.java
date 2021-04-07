@@ -2,6 +2,7 @@ package app.config;
 
 import app.model.Role;
 import app.model.User;
+import app.service.InitService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,12 +28,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
     private final LoginSuccessHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по
+    private final InitService initService;
     private final UserService userService;
-    private boolean defaultRowsCreated = false;
+    private boolean defaultRowsIsCreated = false;
 
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler, UserService userService) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler, InitService initService, UserService userService) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
+        this.initService = initService;
         this.userService = userService;
     }
 
@@ -52,17 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if (!defaultRowsCreated) {
-            Set<Role> roles = new HashSet<>();
-            Role roleAdmin = new Role(1, "ROLE_ADMIN");
-            Role roleUser = new Role(2, "ROLE_USER");
-            roles.add(roleAdmin);
-            roles.add(roleUser);
-            User user = new User(1, "sofia", "kim", 25, "admin@mail.ru", "admin", roles);
+        if (!defaultRowsIsCreated) {
+            User user = initService.getDefaultUser();
             String encodedPassword = passwordEncoder().encode(user.getPassword());
             user.setPassword(encodedPassword);
-            userService.createDefaultRows(roles, user);
-            defaultRowsCreated = true;
+            userService.saveDefaultUser(user);
+            defaultRowsIsCreated = true;
+
         }
         http.formLogin()
                 // указываем страницу с формой логина

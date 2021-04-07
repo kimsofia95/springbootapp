@@ -22,5 +22,6 @@ public interface UserService {
 
     User findUserByName(String name);
 
-    void createDefaultRows(Set<Role> roles, User user);
+    void saveDefaultUser(User user);
+
 }

@@ -75,9 +75,8 @@ public class UserServiceImpl implements UserService {
        return null;
     }
 
-    @Override
-    public void createDefaultRows(Set<Role> roles, User user) {
-        for (Role role: roles) {
+    public void saveDefaultUser(User user) {
+        for (Role role: user.getRoles()) {
             roleRepository.save(role);
         }
         userRepository.save(user);
