@@ -2,6 +2,7 @@ package app.config;
 
 import app.model.Role;
 import app.model.User;
+import app.service.InitService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,11 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -25,12 +22,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
     private final LoginSuccessHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по
+    private final InitService initService;
     private final UserService userService;
     private boolean defaultRowsIsCreated = false;
 
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler, UserService userService) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler, InitService initService, UserService userService) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
+        this.initService = initService;
         this.userService = userService;
     }
 
@@ -42,15 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         if (!defaultRowsIsCreated) {
-            Set<Role> roles = new HashSet<>();
-            Role roleAdmin = new Role(1, "ROLE_ADMIN");
-            Role roleUser = new Role(2, "ROLE_USER");
-            roles.add(roleAdmin);
-            roles.add(roleUser);
-            User user = new User(1, "admin", "admin", roles);
+            User user = initService.getDefaultUser();
             String encodedPassword = passwordEncoder().encode(user.getPassword());
             user.setPassword(encodedPassword);
-            userService.createDefaultRows(roles, user);
+            userService.saveDefaultUser(user);
             defaultRowsIsCreated = true;
         }
         http.csrf().disable();
