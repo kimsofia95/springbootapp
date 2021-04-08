@@ -1,14 +1,11 @@
-package app.web.controller;
+package app.controller;
 
-import app.model.Role;
 import app.model.User;
 import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -18,15 +15,19 @@ import java.util.*;
 public class RestAdminController {
     private final UserService userService;
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RestAdminController(UserService userService, RoleService roleService) {
+    public RestAdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping(value = "/add")
     public void addUser(@RequestBody User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         userService.save(user);
     }
 
@@ -37,6 +38,8 @@ public class RestAdminController {
 
     @PutMapping(value = "/edit")
     public void editUser(@RequestBody User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         userService.save(user);
     }
 

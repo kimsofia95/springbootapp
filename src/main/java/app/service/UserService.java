@@ -22,7 +22,7 @@ public interface UserService {
 
     User findUserByName(String name);
 
-    void createDefaultRows();
+    void saveDefaultUser(User user);
 
     Optional<User> findById(int id);
 }

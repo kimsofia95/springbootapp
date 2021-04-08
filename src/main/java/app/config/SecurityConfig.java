@@ -1,5 +1,7 @@
-package app.web.config;
+package app.config;
 
+import app.model.User;
+import app.service.InitService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,7 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -22,12 +24,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService; // сервис, с помощью которого тащим пользователя
     private final LoginSuccessHandler successUserHandler; // класс, в котором описана логика перенаправления пользователей по
     private final UserService userService;
+    private final InitService initService;
     private boolean defaultRowsIsCreated = false;
 
-    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler, UserService userService) {
+    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService, LoginSuccessHandler successUserHandler, UserService userService, InitService initService) {
         this.userDetailsService = userDetailsService;
         this.successUserHandler = successUserHandler;
         this.userService = userService;
+        this.initService = initService;
     }
 
     @Autowired
@@ -49,7 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         if (!defaultRowsIsCreated) {
-            userService.createDefaultRows();
+            User user = initService.getDefaultUser();
+            String encodedPassword = passwordEncoder().encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            userService.saveDefaultUser(user);
             defaultRowsIsCreated = true;
         }
         http.formLogin()
@@ -89,6 +96,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }
