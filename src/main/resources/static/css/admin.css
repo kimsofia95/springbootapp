@@ -3,6 +3,10 @@
     border-color: #009688;
 }
 
+#admin {
+    height: 100%;
+}
+
 .users_info_page {
     background-color: #F8F9FA;
     width: 100%;

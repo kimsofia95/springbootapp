@@ -28,11 +28,13 @@ const renderUsers = (users => {
 
         usersList.innerHTML = temp;
     }
+
 })
 
 function show() {
     fetch("http://localhost:8080/api/users")
         .then(res => res.json())
         .then(data => renderUsers(data))
-}
+} setInterval('show()', 1000);
+
 show();
