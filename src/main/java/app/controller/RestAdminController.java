@@ -4,6 +4,8 @@ import app.model.User;
 import app.service.RoleService;
 import app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -37,23 +39,44 @@ public class RestAdminController {
     }
 
     @PutMapping(value = "/edit")
-    public void editUser(@RequestBody User user) {
+    public ResponseEntity<?> editUser(@RequestBody User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        userService.save(user);
+        try {
+            User existUser = userService.show(user.getId());
+            userService.save(existUser);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/users")
-    public List<User> allUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<User>> allUsers() {
+        try {
+            List<User> usersList = userService.getAllUsers();
+            return new ResponseEntity<List<User>>(usersList, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
+        }
     }
+
     @GetMapping(value = "/user")
-    public User UserPageId(@AuthenticationPrincipal User user) {
-        return user;
+    public ResponseEntity<User> UserPageId(@AuthenticationPrincipal User user) {
+        try {
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping(value = "/users/{userid}")
-    public Optional<User> userGetById(@PathVariable int userid) {
-        return userService.findById(userid);
+    public ResponseEntity<User> userGetById(@PathVariable int userid) {
+        try {
+            User user = userService.show(userid);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
     }
 }
