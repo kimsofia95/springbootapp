@@ -43,8 +43,7 @@ public class RestAdminController {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         try {
-            User existUser = userService.show(user.getId());
-            userService.save(existUser);
+            userService.save(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
